@@ -4,31 +4,35 @@ import React  from 'react'
 import axios from 'axios'
 import { toast } from "react-toastify"
 
-const Table = ({todos , fetchTodos}) => {
-
+const Table = ({ todos, fetchTodos }) => {
     const deleteTodo = async (id) => {
-        const response = await axios.delete('/api', {
-            params: {
-                _id: id
-            }
-        })
-        fetchTodos();
-        toast.success(response.data.msg);
-    }
-
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;  // Access the API URL from env variable
+  
+      const response = await axios.delete(`${apiUrl}/api`, {
+        params: { _id: id },
+      });
+  
+      fetchTodos();
+      toast.success(response.data.msg);
+    };
+  
     useEffect(() => {
-        fetchTodos()
-    }, [])
-
+      fetchTodos();
+    }, []);
+  
     const Complete = async (id) => {
-        const response = await axios.put('/api', {}, {
-            params: {
-                _id: id
-            }
-        });
-        fetchTodos()
-        toast.success(response.data.msg);
-    }
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;  // Access the API URL from env variable
+  
+      const response = await axios.put(
+        `${apiUrl}/api`,
+        {},
+        { params: { _id: id } }
+      );
+  
+      fetchTodos();
+      toast.success(response.data.msg);
+    };
+  
 
     return (
         <div className="relative overflow-x-auto mx-auto mt-10 max-w-4xl shadow-md sm:rounded-lg">

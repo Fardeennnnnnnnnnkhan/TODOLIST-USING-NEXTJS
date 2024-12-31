@@ -7,7 +7,7 @@ const Form = ({ fetchTodos }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    date: "", // Add date field to the state
+    date: "",
   });
 
   const onchangeHandler = (e) => {
@@ -21,21 +21,22 @@ const Form = ({ fetchTodos }) => {
     e.preventDefault();
 
     try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;  // Access the API URL from env variable
+
       // API code
-      const response = await axios.post("/api", formData);
+      const response = await axios.post(`${apiUrl}/api`, formData);
 
       toast.success(response.data.msg);
       setFormData({
         title: "",
         description: "",
-        date: "", // Reset date field
+        date: "",
       });
       fetchTodos();
     } catch (err) {
       toast.error("Something Went Wrong");
     }
   };
-
   return (
     <>
       <ToastContainer theme="dark" />
