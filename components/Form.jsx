@@ -14,7 +14,6 @@ const Form = ({ fetchTodos }) => {
     const name = e.target.name;
     const val = e.target.value;
     setFormData((form) => ({ ...form, [name]: val }));
-    console.log(formData);
   };
 
   const onsubmitHandler = async (e) => {
